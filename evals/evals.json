@@ -1,0 +1,40 @@
+{
+  "skill_name": "github-native-star-lists",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "帮我把 GitHub starred repos 整理成 native Star Lists。先不要写入 GitHub，先导出、分类、给我一个带 confidence 的 CSV 和 summary。",
+      "expected_output": "Should use a read-only gh export, parse paginated star JSON robustly, discover or load a user-reviewed taxonomy JSON, run or describe discover_taxonomy.py and classify_stars.py, include confidence columns, produce review artifacts, and explicitly avoid GitHub writes."
+    },
+    {
+      "id": 1,
+      "prompt": "我已经有 stars_lists_with_confidence_latest.csv 了，想同步到 GitHub Star Lists。先用 gh 看看能不能 GraphQL dry-run，不要直接写。",
+      "expected_output": "Should require gh GraphQL auth with user scope, ask or infer single versus multi repo-list mode, produce a dry-run plan with a plan id, default to additive sync, and ask approval before writes."
+    },
+    {
+      "id": 2,
+      "prompt": "GitHub 上有些 Star Lists 已经存在了。请把新分类同步过去，但不要删任何已有 list，也不要把 repo 从已有 list 里移除。写完要确认数量对得上。",
+      "expected_output": "Should choose additive mode only, ask whether repos should enter one list or multiple lists, use GraphQL updateUserListsForItem while preserving existing listIds, create missing lists, add missing repos, avoid remove/delete operations, checkpoint progress, and read back memberships for verification."
+    },
+    {
+      "id": 3,
+      "prompt": "GitHub GraphQL scope 不够的话怎么办？如果 cookie endpoint 还能用，要不要直接拿 Chrome cookie 写？",
+      "expected_output": "Should explain gh auth refresh -h github.com -s user or a GH_TOKEN with required scope, refuse cookie/CSRF/Playwright fallback for writes, and still require dry-run plus approval before writes."
+    },
+    {
+      "id": 4,
+      "prompt": "这个 skill 要放到 public repo，不能假设所有人都用同一套 List 名称。没有 taxonomy 的用户应该怎么开始？",
+      "expected_output": "Should not assume a fixed taxonomy, should recommend discover_taxonomy.py to create a draft from the user's own stars, ask the user to review or edit taxonomy_draft_latest.json, then pass --taxonomy-json to classify_stars.py."
+    },
+    {
+      "id": 5,
+      "prompt": "这次分类我想一个 repo 可以进多个 Star Lists。CSV 里应该怎么表示，同步时怎么 dry-run？",
+      "expected_output": "Should recommend repo-list-mode multi for both classify_stars.py and sync_star_lists_graphql.py, allow repeated repo rows or proposed_list values separated by comma/semicolon/pipe, preserve existing memberships, and include the mode in the plan."
+    },
+    {
+      "id": 6,
+      "prompt": "运行这个 skill 前用户或者 Agent 需要准备什么？有没有命令能先检查环境？",
+      "expected_output": "Should list Python 3.10+, gh installed, gh or GH_TOKEN authentication, user scope, and recommend running scripts/check_prereqs.py before export, classification, dry-run, or apply."
+    }
+  ]
+}

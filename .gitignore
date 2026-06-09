@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+
+# Local outputs and caches
+.cache/
+outputs/
+tmp/
+*.log
+
+# Generated GitHub Star Lists artifacts
+starred_pages.json
+stars_latest.json
+taxonomy_draft_latest.json
+taxonomy_draft_review_latest.md
+stars_lists_with_confidence_latest.csv
+low_confidence_review_latest.csv
+classification_summary_latest.md
+graphql_sync_plan_*.json
+graphql_sync_result_*.json
+graphql_sync_checkpoint_*.jsonl
+
+# Secrets and local auth material
+.env
+.env.*
+*.token
+*.secret
+cookies*.txt
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
