@@ -16,6 +16,7 @@
 - **GraphQL dry-run plan**：写入前生成稳定 plan id。
 - **默认 additive sync**：只创建缺失 Lists 和添加 memberships，不删除、不移除。
 - **checkpoint/resume 和 read-back verification**。
+- **中英双语 List 描述更新**，写入后回读验证。
 
 ## 目录结构
 
@@ -29,12 +30,14 @@
 ├── evals/
 │   └── evals.json                            # Skill eval prompts
 ├── references/
-│   └── graphql-star-list-crud-2026-06.md     # 已验证 GraphQL 行为记录
+│   ├── graphql-star-list-crud-2026-06.md     # 已验证 GraphQL 行为记录
+│   └── list_descriptions_zh_en.json          # 中英双语描述示例
 └── scripts/
     ├── check_prereqs.py                      # 环境和认证预检
     ├── discover_taxonomy.py                  # 从 starred metadata 生成 taxonomy 草稿
     ├── classify_stars.py                     # 按 taxonomy 分类 stars
-    └── sync_star_lists_graphql.py            # GraphQL dry-run/apply 同步
+    ├── sync_star_lists_graphql.py            # GraphQL dry-run/apply 同步
+    └── update_list_descriptions.py           # 更新 List 描述
 ```
 
 ## 环境要求
@@ -119,6 +122,28 @@ python scripts/sync_star_lists_graphql.py \
   --confirm-plan-id PLAN_ID
 ```
 
+## 更新 List 描述
+
+List 创建后，可以用 JSON 映射批量设置或刷新描述：
+
+```bash
+python scripts/update_list_descriptions.py \
+  --descriptions-json references/list_descriptions_zh_en.json \
+  --dry-run
+```
+
+确认后执行并回读验证：
+
+```bash
+python scripts/update_list_descriptions.py \
+  --descriptions-json references/list_descriptions_zh_en.json
+```
+
+JSON 支持两种格式：简单的 `{"List-Name": "描述"}`，或
+`{"lists": [{"name": "List-Name", "description": "描述"}]}`。脚本会保留
+List 名称和公开/私有设置，写入后回读验证；遇到缺失 List、写入失败或
+描述不一致时返回非零退出码。`--username` 可指定其他账号。
+
 ## Taxonomy
 
 本 skill 不内置通用固定 taxonomy。用户可以从自己的 starred repo metadata 生成草稿，也可以提供自定义 taxonomy JSON：
@@ -155,6 +180,7 @@ python scripts/sync_star_lists_graphql.py \
 ```bash
 python -m py_compile scripts/*.py
 python -m json.tool evals/evals.json
+python -m json.tool references/list_descriptions_zh_en.json
 ```
 
 使用当前 GitHub 认证做前置检查：

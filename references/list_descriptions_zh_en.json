@@ -1,0 +1,19 @@
+{
+  "AI-LLM": "大模型、机器学习、计算机视觉、语音与 AI 应用 | LLMs, machine learning, computer vision, speech, and AI applications",
+  "Android": "Android 应用、Jetpack Compose、Kotlin/Java 与移动端开发 | Android apps, Jetpack Compose, Kotlin/Java, and mobile development",
+  "Backend": "后端服务、Spring/Netty、API、微服务与 JVM 生态 | Backend services, Spring/Netty, APIs, microservices, and the JVM ecosystem",
+  "CLI-Tools": "命令行工具、终端/TUI、下载器与开发者实用工具 | CLI tools, terminal/TUI apps, downloaders, and developer utilities",
+  "Database": "数据库、SQL/NoSQL、ORM、数据工程与分析 | Databases, SQL/NoSQL, ORMs, data engineering, and analytics",
+  "Desktop": "桌面应用、Tauri/Electron、Qt/GTK 与跨平台 GUI | Desktop apps, Tauri/Electron, Qt/GTK, and cross-platform GUI",
+  "DevOps": "Docker/Kubernetes、CI/CD、基础设施与自托管 | Docker/Kubernetes, CI/CD, infrastructure, and self-hosting",
+  "Flutter": "Flutter 与 Dart 应用、插件和跨平台 UI | Flutter and Dart apps, plugins, and cross-platform UI",
+  "GameDev": "游戏开发、Unity/Unreal/Godot、图形渲染与引擎 | Game development, Unity/Unreal/Godot, graphics rendering, and engines",
+  "Learning": "教程、Awesome 列表、书籍、路线图与学习资源 | Tutorials, awesome lists, books, roadmaps, and learning resources",
+  "MCP-Agents": "MCP、AI Agent、Claude Code/Codex 技能与智能体框架 | MCP, AI agents, Claude Code/Codex skills, and agent frameworks",
+  "Media-Streaming": "音视频、FFmpeg、WebRTC、直播与播放器 | Audio/video, FFmpeg, WebRTC, live streaming, and players",
+  "Python": "Python 语言、Web 框架、数据处理与脚本工具 | Python language, web frameworks, data processing, and scripting tools",
+  "Rust": "Rust 语言、Cargo 生态、系统编程与工具 | Rust language, Cargo ecosystem, systems programming, and tools",
+  "Security": "安全、逆向工程、渗透测试、恶意软件与隐私 | Security, reverse engineering, penetration testing, malware, and privacy",
+  "Web-Frontend": "Web 前端、React/Vue、TypeScript、浏览器扩展与设计系统 | Web frontend, React/Vue, TypeScript, browser extensions, and design systems",
+  "iOS": "iOS 应用、SwiftUI、Objective-C 与 Apple 生态 | iOS apps, SwiftUI, Objective-C, and the Apple ecosystem"
+}

@@ -16,6 +16,7 @@ It uses GitHub GraphQL through `gh` only. It does not use browser cookies, CSRF 
 - **GraphQL dry-run plans** with stable plan ids before any write.
 - **Additive sync by default**: create missing lists and add memberships without deleting or removing anything.
 - **Checkpoint/resume and read-back verification** for write runs.
+- **Bilingual List description updates** with read-back verification.
 
 ## Repository layout
 
@@ -29,12 +30,14 @@ It uses GitHub GraphQL through `gh` only. It does not use browser cookies, CSRF 
 ├── evals/
 │   └── evals.json                            # Skill eval prompts
 ├── references/
-│   └── graphql-star-list-crud-2026-06.md     # Verified GraphQL behavior notes
+│   ├── graphql-star-list-crud-2026-06.md     # Verified GraphQL behavior notes
+│   └── list_descriptions_zh_en.json          # Bilingual description example
 └── scripts/
     ├── check_prereqs.py                      # Environment and auth preflight
     ├── discover_taxonomy.py                  # Draft taxonomy from starred metadata
     ├── classify_stars.py                     # Classify stars against taxonomy
-    └── sync_star_lists_graphql.py            # Dry-run/apply GraphQL sync
+    ├── sync_star_lists_graphql.py            # Dry-run/apply GraphQL sync
+    └── update_list_descriptions.py           # Update List descriptions
 ```
 
 ## Requirements
@@ -119,6 +122,30 @@ python scripts/sync_star_lists_graphql.py \
   --confirm-plan-id PLAN_ID
 ```
 
+## Updating List descriptions
+
+Once lists exist, set or refresh descriptions from a JSON mapping:
+
+```bash
+python scripts/update_list_descriptions.py \
+  --descriptions-json references/list_descriptions_zh_en.json \
+  --dry-run
+```
+
+Review the planned updates, then apply and verify:
+
+```bash
+python scripts/update_list_descriptions.py \
+  --descriptions-json references/list_descriptions_zh_en.json
+```
+
+The JSON can be a simple `{"List-Name": "description"}` object or
+`{"lists": [{"name": "List-Name", "description": "description"}]}`. The
+script preserves each list's name and privacy setting, reads the
+descriptions back to verify, and exits non-zero on missing lists, failures,
+or mismatches. Use `--username` when `gh` is authenticated to a different
+account.
+
 ## Taxonomy
 
 This skill does not ship a universal fixed taxonomy. Each user can discover a draft from their own starred repo metadata or provide a custom taxonomy JSON:
@@ -155,6 +182,7 @@ Run local syntax checks:
 ```bash
 python -m py_compile scripts/*.py
 python -m json.tool evals/evals.json
+python -m json.tool references/list_descriptions_zh_en.json
 ```
 
 Run the preflight check against the current GitHub auth:

@@ -321,9 +321,22 @@ After execution, report:
 - Artifacts: paths to plan/result/checkpoint JSON or JSONL
 ```
 
+## Phase 6 - Optional: Update List Descriptions
+
+Use `scripts/update_list_descriptions.py` to set or refresh descriptions without changing list names, memberships, or privacy:
+
+```bash
+python scripts/update_list_descriptions.py \
+  --descriptions-json references/list_descriptions_zh_en.json \
+  --dry-run
+```
+
+Review the planned updates, then run the same command without `--dry-run`. The script reads the descriptions back and reports missing lists, failures, and mismatches. Replace the bundled Chinese/English example with your own JSON mapping when needed.
+
 ## Final Reminders
 
 - Require a GitHub token or `gh` auth with `user` scope before GraphQL writes.
+- Use `update_list_descriptions.py` for description-only changes; it preserves list names, privacy, and memberships.
 - Do not use browser cookies, CSRF scraping, Playwright, or unofficial web endpoints.
 - Separate classification from writing.
 - Ask or infer `single` versus `multi` repo-list mode before the dry-run.
